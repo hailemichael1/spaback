@@ -35,24 +35,5 @@ app.use(errorHandler);
 //   );
 // }
 
-// Serve frontend safely in production
-if (process.env.NODE_ENV === "production") {
-  const clientDistPath = path.join(__dirname, "../client/dist");
-
-  // Serve static files
-  app.use(express.static(clientDistPath));
-
-  // Serve index.html for all other routes
-  app.get("*", (req, res) => {
-    const indexPath = path.join(clientDistPath, "index.html");
-    res.sendFile(indexPath, err => {
-      if (err) {
-        console.error("Error serving frontend:", err);
-        res.status(500).send("Frontend not found");
-      }
-    });
-  });
-}
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
